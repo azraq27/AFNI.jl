@@ -1,0 +1,8 @@
+name = "AFNI"
+uuid = "f93e136e-b245-11e8-01f8-6da12d78f1e7"
+authors = ["Bill Gross <bill.gross@me.com>"]
+version = "0.1.0"
+
+[deps]
+EzXML = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"
+NIfTI = "a3a9e032-41b5-5fc4-967a-a6b7a19844d3"
