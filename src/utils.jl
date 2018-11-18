@@ -8,6 +8,8 @@ isdset(fname::AbstractString) = isnifti(fname) || isafni(fname)
 prefix(fname::AbstractString) = replace(replace(fname,_nifti_suffix_regex=>""),_afni_suffix_regex=>"")
 
 function suffix(fname::AbstractString,suf::AbstractString)
+    fname = split(fname,"/")[end]
+    
     m = match(_nifti_suffix_regex,fname)
     m != nothing && return fname[1:m.offset-1] * suf * m.match
 
