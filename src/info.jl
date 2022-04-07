@@ -72,12 +72,15 @@ function AFNIExtension(e::NIfTI.NIfTIExtension)
             header_dict[n] = parse.(Float64,split(content(atr)))
         end
 
-        isa(header_dict[n],AbstractArray) && length(header_dict[n])==1 && (header_dict[n] = header_dict[n][1])
+        isa(header_dict[n],AbstractArray) && length(header_dict[n])==1 && (header_dict[n] = only(header_dict[n]))
         if n == "BRICK_LABS"
             isa(header_dict[n],AbstractArray) && (header_dict[n] = join(header_dict[n]))
             header_dict[n] = split(header_dict[n],"~")
         end
-        n == "BRICK_STATSYM" && (header_dict[n] = split(header_dict[n],";"))
+        if n == "BRICK_STATSYM"
+            isa(header_dict[n],AbstractArray) && (header_dict[n] = join(header_dict[n]))
+            header_dict[n] = split(header_dict[n],";")
+        end
     end
 
     free(xdoc)

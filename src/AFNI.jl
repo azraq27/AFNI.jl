@@ -10,8 +10,8 @@ export prefix,suffix
 # Decon
 export deconvolve
 
-include("utils.jl")
 include("info.jl")
+include("utils.jl")
 include("decon.jl")
 
 end
