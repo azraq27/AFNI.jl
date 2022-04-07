@@ -86,11 +86,12 @@ end
 
 NIfTIExtension(a::AFNIExtension) = NIfTI.NIfTIExtension(a.ecode,a.edata)
 
+"""copied straight from NIfTI.jl - just to avoid reading the whole file"""
 function read_extensions(fname::AbstractString)
     open(fname) do f
         f = NIfTI.niopen(f)   # Let NIfTI.jl handle the GZip stuff
         header, swapped = NIfTI.read_header(f)
-        NIfTI.read_extensions(f, header)
+        NIfTI.read_extensions(f, header.vox_offset - 352) # Yeah. Don't know. Just copied it.
     end
 end
 
