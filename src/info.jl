@@ -1,4 +1,4 @@
-using NIfTI,LightXML,GZip
+using NIfTI,LightXML
 
 """isafni(e::NIfTI.NIfTIExtension)
 
@@ -88,7 +88,7 @@ NIfTIExtension(a::AFNIExtension) = NIfTI.NIfTIExtension(a.ecode,a.edata)
 
 function read_extensions(fname::AbstractString)
     open(fname) do f
-        NIfTI.isgz(f) && (f = NIfTI.gzdopen(f))
+        f = NIfTI.niopen(f)   # Let NIfTI.jl handle the GZip stuff
         header, swapped = NIfTI.read_header(f)
         NIfTI.read_extensions(f, header)
     end

@@ -4,6 +4,5 @@ authors = ["Bill Gross <bill.gross@me.com>"]
 version = "0.1.0"
 
 [deps]
-GZip = "92fee26a-97fe-5a0c-ad85-20a5f3185b63"
 LightXML = "9c8b4983-aa76-5018-a973-4c85ecc9e179"
 NIfTI = "a3a9e032-41b5-5fc4-967a-a6b7a19844d3"
