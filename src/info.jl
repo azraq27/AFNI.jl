@@ -1,4 +1,4 @@
-using NIfTI,LightXML
+using NIfTI,LightXML,GZip
 
 """isafni(e::NIfTI.NIfTIExtension)
 
