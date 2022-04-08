@@ -6,6 +6,7 @@ export isafni,AFNIExtension,NIfTIExtension,dset_info
 # Utils
 export isnifti,isafni,isdset
 export prefix,suffix
+export subbrick,p_to_value
 
 # Decon
 export deconvolve
