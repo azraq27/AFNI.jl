@@ -19,6 +19,8 @@ function deconvolve(
 
     append!(cmd,["-nfirst",nfirst,"-polort",polort,"-jobs",jobs])
 
+    append!(cmd,["-local_times"])
+    
     num_runs = if isa(input,Vector)
         append!(cmd,vcat(["-input"],input))
         length(input)
