@@ -23,7 +23,7 @@ function deconvolve(
     append!(cmd,["-nfirst",nfirst,"-polort",polort,"-jobs",jobs])
 
     append!(cmd,["-local_times"])
-    
+
     num_runs = if isa(input,Vector)
         append!(cmd,vcat(["-input"],input))
         length(input)
@@ -63,8 +63,8 @@ function deconvolve(
     end
 
     for (k,v) in base
-        append!(cmd,["-stim_file",stim_i,"1D: " * join(v," ")
-                     "-stim_label",stim_i,k
+        append!(cmd,["-stim_file",stim_i,"1D: " * join(v," "),
+                     "-stim_label",stim_i,k,
                      "-stim_base",stim_i])
         stim_i += 1
     end
