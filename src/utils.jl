@@ -61,3 +61,5 @@ function p_to_value(dset::AbstractString,label::AbstractString,p::Float64;suff=:
     end
     return nothing
 end
+
+num_reps(fname::AbstractString) = parse(Int,only(readlines(`3dinfo -nv $fname`)))
