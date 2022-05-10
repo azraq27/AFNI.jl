@@ -7,6 +7,7 @@ export isafni,AFNIExtension,NIfTIExtension,dset_info
 export isnifti,isafni,isdset
 export prefix,suffix
 export subbrick,p_to_value
+export num_reps
 
 # Decon
 export deconvolve

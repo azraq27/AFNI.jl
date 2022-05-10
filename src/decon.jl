@@ -1,7 +1,9 @@
-"""deconvolve(input, stimtimes; kawargs...)
+"""deconvolve(input, stimtimes; base=Dict(), kawargs...)
 
     input - either a single string or vector of strings
     stimtimes - either a Dict(label => [times]) or vector of Dicts (one for each input)
+
+    base - `Dict` of label => vector of Float (length of inputs). Used as a baseline covariate
 
 This function is really case-specific for how I use 3dDeconvolve. Hopefully over time
 I'll add more options to make it more general...
@@ -9,6 +11,7 @@ I'll add more options to make it more general...
 function deconvolve(
         input::Union{String,Vector{String},Tuple{Int,Float64}},
         stimtimes::Union{Dict{String,Vector{Float64}},Dict{String,Vector{Vector{Float64}}}};
+        base=Dict(),
         model="GAM",
         nfirst::Int=3,polort="A",jobs=length(Sys.cpu_info()),
         glts::Dict=Dict(),
@@ -20,7 +23,7 @@ function deconvolve(
     append!(cmd,["-nfirst",nfirst,"-polort",polort,"-jobs",jobs])
 
     append!(cmd,["-local_times"])
-    
+
     num_runs = if isa(input,Vector)
         append!(cmd,vcat(["-input"],input))
         length(input)
@@ -41,7 +44,7 @@ function deconvolve(
         end
     end
 
-    append!(cmd,["-num_stimts",length(stimtimes)])
+    append!(cmd,["-num_stimts",length(stimtimes) + length(base)])
 
     stim_i = 1
 
@@ -56,6 +59,13 @@ function deconvolve(
         end
         append!(cmd,["-stim_times",stim_i,"1D: " * join(vs," | "),model,
                      "-stim_label",stim_i,k])
+        stim_i += 1
+    end
+
+    for (k,v) in base
+        append!(cmd,["-stim_file",stim_i,"1D: " * join(v," "),
+                     "-stim_label",stim_i,k,
+                     "-stim_base",stim_i])
         stim_i += 1
     end
 
