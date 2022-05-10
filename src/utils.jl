@@ -21,11 +21,13 @@ function suffix(fname::AbstractString,suf::AbstractString)
     return fname * suf
 end
 
-"""subbrick(dset::String,label::String;suff=:coef)
+"""subbrick(dset::String,label::String;suff=:coef,num_only=false)
 
     makes an AFNI-compatible dset string (e.g., "dset[3]") from the dset and label
     names. If `suff` == `:coef` (the default), will add "_#0Coef" to the label. Also
-    accepts `:tstat`, `rstat`, and `:fstat`"""
+    accepts `:tstat`, `rstat`, and `:fstat`
+
+    If you just want the index as a number, set `num_only` to `true`"""
 function subbrick(dset::AbstractString,label::AbstractString;
     suff::Union{T,Symbol,Nothing}=:coef,num::Int=0,
     num_only::Bool=false
@@ -41,7 +43,7 @@ function subbrick(dset::AbstractString,label::AbstractString;
     i = findfirst(isequal(label),info["BRICK_LABS"])
     i==nothing && return nothing
     num_only && return i
-    return "$dset[$i]"
+    return "$dset[$(i-1)]"
 end
 
 """p_to_value(dset::String,label::String,p::Float64;suff=:tstat)
